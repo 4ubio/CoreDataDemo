@@ -44,29 +44,61 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-
             VStack {
-                TextField("Product name", text: $name)
-                TextField("Product quantity", text: $quantity)
+                TextField(
+                    "Product name",
+                    text: $name
+                )
+                .border(Color.blue)
+                .cornerRadius(2)
+                
+                TextField(
+                    "Product quantity",
+                    text: $quantity
+                )
+                .border(Color.blue)
+                .cornerRadius(2)
                 
                 HStack {
-                    Spacer()
                     Button("Add") {
                         addProduct()
                     }
+                    .bold()
+                    .padding(5)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundStyle(.white)
+                    .cornerRadius(10)
+                    
                     Spacer()
+                    
                     NavigationLink(destination: ResultsView(name: name,
-                                   viewContext: viewContext)) {
+                                   viewContext: viewContext))
+                    {
                         Text("Find")
                     }
+                    .bold()
+                    .padding(5)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundStyle(.white)
+                    .cornerRadius(10)
+                    
                     Spacer()
+                    
                     Button("Clear") {
                         name = ""
                         quantity = ""
                     }
-                    Spacer()
+                    .bold()
+                    .padding(5)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundStyle(.white)
+                    .cornerRadius(10)
+                    
                 }
-                .padding()
+                .padding(.vertical)
                 .frame(maxWidth: .infinity)
                 
                 List {
@@ -80,7 +112,10 @@ struct ContentView: View {
                     .onDelete(perform: deleteProducts)
                 }
                 .navigationTitle("Product Database")
-
+                .background(Color.white)
+                .scrollContentBackground(.hidden)
+                .listStyle(PlainListStyle())
+                
             }
             .padding()
             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -107,6 +142,9 @@ struct ResultsView: View {
                }
            }
            .navigationTitle("Results")
+           .background(Color.white)
+           .scrollContentBackground(.hidden)
+           .listStyle(PlainListStyle())
         }
        .task {
            let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
